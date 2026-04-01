@@ -4,8 +4,7 @@
         "target": "ESNext",
         "module": "ESNext",
         "types": ["@cloudflare/workers-types"],
-        
-        /* 核心修复：改用 bundler 模式，移除 baseUrl */
+        /* 核心修复：使用现代化模块解析，不再使用废弃的 node10/baseUrl */
         "moduleResolution": "bundler",
         
         "strict": true,
@@ -16,8 +15,14 @@
         "isolatedModules": true,
         "noEmit": true,
 
-        /* 重点：将原本相对于 baseUrl (src) 的路径，改为相对于项目根目录 */
+        /* 路径映射：全部基于项目根目录 */
         "paths": {
+            /* 基础模块映射 (解决 Error TS2307) */
+            "auth": ["./src/auth"],
+            "kv": ["./src/kv"],
+            "types/*": ["./src/types/*"],
+
+            /* 别名映射 */
             "@xray/*": ["./src/cores/xray/*"],
             "@sing-box/*": ["./src/cores/sing-box/*"],
             "@clash/*": ["./src/cores/clash/*"],
