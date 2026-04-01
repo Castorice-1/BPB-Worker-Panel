@@ -330,7 +330,8 @@ async function getWarpConfigs(request: Request, env: Env): Promise<Response> {
     const trimLines = (str: string) => str.split("\n").map(line => line.trim()).join("\n");
 
     try {
-        warpEndpoints?.forEach((endpoint, index) => {
+        /* 核心修复：为 endpoint 和 index 添加类型声明 (修复 TS7006) */
+        warpEndpoints?.forEach((endpoint: string, index: number) => {
             const config =
                 `[Interface]
                 PrivateKey = ${privateKey}
