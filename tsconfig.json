@@ -1,28 +1,33 @@
 {
     "include": ["src"],
     "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
+        "target": "ESNext",
+        "module": "ESNext",
         "types": ["@cloudflare/workers-types"],
-        "moduleResolution": "node",
-        "baseUrl": "src",
+        
+        /* 核心修复：改用 bundler 模式，移除 baseUrl */
+        "moduleResolution": "bundler",
+        
         "strict": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "skipLibCheck": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
+        "noEmit": true,
+
+        /* 重点：将原本相对于 baseUrl (src) 的路径，改为相对于项目根目录 */
         "paths": {
-            "@xray/*": ["cores/xray/*"],
-            "@sing-box/*": ["cores/sing-box/*"],
-            "@clash/*": ["cores/clash/*"],
-            "@utils": ["cores/utils"],
-            "@handlers": ["common/handlers"],
-            "@init": ["common/init"],
-            "@common": ["common/common"],
-            "@vless": ["protocols/websocket/vless"],
-            "@trojan": ["protocols/websocket/trojan"],
-            "@warp": ["protocols/warp"]
+            "@xray/*": ["./src/cores/xray/*"],
+            "@sing-box/*": ["./src/cores/sing-box/*"],
+            "@clash/*": ["./src/cores/clash/*"],
+            "@utils": ["./src/cores/utils"],
+            "@handlers": ["./src/common/handlers"],
+            "@init": ["./src/common/init"],
+            "@common": ["./src/common/common"],
+            "@vless": ["./src/protocols/websocket/vless"],
+            "@trojan": ["./src/protocols/websocket/trojan"],
+            "@warp": ["./src/protocols/warp"]
         }
     }
 }
